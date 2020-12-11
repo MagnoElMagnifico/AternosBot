@@ -20,9 +20,9 @@ You will have to host yourself this bot. To do this you can check the [Discord D
 + Copy the `TOKEN`.
 + Finally, to be able to conect your application to your discord server, use the following link with the `CLIENT ID` of your application.
 
-´´´
+```
 https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot
-´´´
+```
 
 This should make the bot join to your discord server, but it would appear as disconnected. Let's see how to turn it on.
 
@@ -30,9 +30,9 @@ This should make the bot join to your discord server, but it would appear as dis
 + [Python](https://www.python.org/downloads/) is required to run this program, so just type `python AternosBot.py` on the command line.
 + If you get some importing errors (`ModuleNotFoundError`), try installing those modules with:
 
-´´´
+```
 pip install discord.py
-´´´
+```
 
 + Also remember to change the bot's `TOKEN` in the code ([AternosBot.py](AternosBot.py) line 4) to yours.
 
