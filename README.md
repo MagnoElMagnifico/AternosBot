@@ -25,6 +25,7 @@ https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot
 ```
 
 This should make the bot join to your discord server, but it would appear as disconnected. Let's see how to turn it on.
+**Note**: You can use the [official aternos icon](aternos-icon.png) for your bot
 
 + Now, to set up the bot, just clone this repository with `git` from the `CMD`: `git clone https://github.com/MagnoElMagnifico/AternosBot` or download the `.zip` file [here](https://github.com/MagnoElMagnifico/AternosBot/archive/main.zip) and extract the source code.
 + [Python](https://www.python.org/downloads/) is required to run this program, so just type `python AternosBot.py` on the command line.
