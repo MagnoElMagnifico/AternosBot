@@ -1,7 +1,7 @@
 import discord
 from JsonManager import read
 
-#### Path to your .json file with the data ####
+#### Path to your .json file with required data ####
 JSON = "data.json"
 
 # Create the bot object
