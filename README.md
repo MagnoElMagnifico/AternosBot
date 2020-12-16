@@ -20,26 +20,32 @@ You will have to host yourself this bot. To do this you can check the [Discord D
 + Copy the `TOKEN`.
 + Finally, to be able to conect your application to your discord server, use the following link with the `CLIENT ID` of your application.
 
-```
-https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot
-```
+  ```
+    https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot
+  ```
 
 This should make the bot join to your discord server, but it would appear as disconnected. Let's see how to turn it on.
-**Note**: You can use the [official aternos icon](aternos-icon.png) for your bot
+**Note**: You can use the [official aternos icon](aternos-icon.png) for your bot.
 
 + Now, to set up the bot, just clone this repository with `git` from the `CMD`: `git clone https://github.com/MagnoElMagnifico/AternosBot` or download the `.zip` file [here](https://github.com/MagnoElMagnifico/AternosBot/archive/main.zip) and extract the source code.
 + [Python](https://www.python.org/downloads/) is required to run this program, so just type `python AternosBot.py` on the command line.
 + If you get some importing errors (`ModuleNotFoundError`), try installing those modules with:
 
-```
-pip install discord.py
-```
+  ```
+    pip install discord.py
+  ```
 
-+ Also remember to change the bot's `TOKEN` in the code ([AternosBot.py](AternosBot.py) line 4) to yours.
++ To link this program with the actual discord's bot, create a `data.json` file on the root folder of this project (or change its path in [AternosBot.py](AternosBot.py) line 5) with the following structure and implement the `TOKEN` you have copied from the beginning.
+
+  ```
+    {
+      "bot-token": "PASTE_HERE"
+    }
+  ```
 
 ## Modules used - Requirements
-+ [AternosAPI](https://github.com/Duerocraft/AternosAPI) by Duerocraft (already implemented in the code)
-  - [BeatifulSoup](https://crummy.com/software/BeautifulSoup/)
++ [BeatifulSoup](https://crummy.com/software/BeautifulSoup/)
++ [Requests](https://pypi.org/project/requests/)
 + [Discord.py](https://pypi.org/project/discord.py/)
 
 ## Developer useful links

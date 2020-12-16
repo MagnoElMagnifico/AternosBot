@@ -1,7 +1,11 @@
 import discord
+from JsonManager import read
 
-#### Your bot token ####
-TOKEN = ""
+#### Path to your .json file with the data ####
+JSON = "data.json"
+
+# Create the bot object
+bot = discord.Client()
 
 # Prints some debugging information about a message given to the bot
 def debug(message):
@@ -9,14 +13,11 @@ def debug(message):
 f"""
 -------------------------------------------------
   message: {message.content}
+  arg: {message.content.lower().replace("%ab ", "")}
   author: {message.author}
   message.channel: {message.channel}
-  arg: {message.content.lower().replace("%ab ", "")}
 -------------------------------------------------
 """ )
-
-# Create the bot object
-bot = discord.Client()
 
 # Executed when the bot is ready
 @bot.event
@@ -68,4 +69,4 @@ I have this options avaliable:
     else:
       await message.channel.send(HELP_INFO)
 
-bot.run(TOKEN)
+bot.run(read(JSON)["bot-token"])
