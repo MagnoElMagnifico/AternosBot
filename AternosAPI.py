@@ -26,3 +26,23 @@ class AternosServer:
     html = BeautifulSoup(web.content, "html.parser")
     result = html.find("span", class_="logout")
     return not result == None
+
+  # Returns the content of a HTML tag given the arguments:
+  # error: the error message to print
+  # name: name of the html tag
+  # id_: id atribute to searh for
+  # clas: class atribute to search for
+  def search(self, name=None, id_=None, clas=None, error=None):
+    web = requests.get(url="https://aternos.org/server/", headers=self.aternos_data)
+    html = BeautifulSoup(web.content, "html.parser")
+    result = html.find(name, id=id_, class_=clas)
+
+    # Check if the result it is correct
+    if (not result == None):
+      return result.get_text().strip()
+
+    # Error handling
+    elif (html.find("span", class_="logout") != None):
+      raise UnexpectedError(error)
+    else:
+      raise InvalidCookie("Error: cannot conect to Aternos. Check the cookie value")
