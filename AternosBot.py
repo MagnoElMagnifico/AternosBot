@@ -1,23 +1,13 @@
 import discord
 from JsonManager import read
+from AternosAPI import *
 
 #### Path to your .json file with required data ####
 JSON = "data.json"
 
-# Create the bot object
-bot = discord.Client()
-
-# Prints some debugging information about a message given to the bot
-def debug(message):
-  print(
-f"""
--------------------------------------------------
-  message: {message.content}
-  arg: {message.content.lower().replace("%ab ", "")}
-  author: {message.author}
-  message.channel: {message.channel}
--------------------------------------------------
-""" )
+# Create the required objects
+bot    = discord.Client()
+server = AternosServer(read(JSON)["aternos-cookie"])
 
 # Executed when the bot is ready
 @bot.event
@@ -40,33 +30,80 @@ async def on_message(message):
 
     # get the arguments given to the bot
     arg = message.content.lower().replace("%ab ", "")
-    debug(message)
 
-    HELP_INFO = f"""
-Hello, my name is {bot.user} and you can call me messaging **%ab**.
-I have this options avaliable:
-    · **test** : Respond to messages mentioning people (testing purposes)
-    · **close**: I'll leave if you don't need me!
-    · **help** : Shows this information
-"""
+    print(
+f"""
+-------------------------------------------------
+  message: {message.content}
+  arg: {message.content.lower().replace("%ab ", "")}
+  author: {message.author}
+  message.channel: {message.channel}
+-------------------------------------------------
+""")
+
+    HELP_INFO = f""" Working on it! """
 
     #### BOT OPTIONS ####
-    # Sends a test message
-    if arg == "test":
-      await message.channel.send("{0.mention} Test concluded!".format(message.author))
+    try:
+      # Sends a test message
+      if arg == "test":
+        await message.channel.send("{0.mention} Test concluded!".format(message.author))
 
-    # Disconnects from the guild/server
-    elif arg == "close":
-      await message.channel.send("{0.mention} :ok_hand:".format(message.author))
-      try:
-       await bot.close()
-      except:
-        pass
+      # Disconnects from the guild/server
+      elif arg == "close":
+        await message.channel.send("{0.mention} :ok_hand:".format(message.author))
+        await bot.close()
 
-    # Shows up some information about the bot
-    elif arg == "help":
-      await message.channel.send(HELP_INFO)
-    else:
-      await message.channel.send(HELP_INFO)
+      # Sends all the information of the server
+      elif arg == "get":
+        await message.channel.send(
+          "{0.mention}".format(message.author)         +
+          "\nName    : " + server.get_server_name()    +
+          "\nStatus  : " + server.get_online_status()  +
+          "\nPlayers : " + server.get_online_players() +
+          "\nVersion : " + server.get_server_version() +
+          "\nSoftware: " + server.get_server_software())
+
+      # Sends the minecraft server IP
+      elif arg == "server name":
+        await message.channel.send("{0.mention} ".format(message.author) + server.get_server_name())
+
+      # Sends the status of the server (online, offline, loading, on queue)
+      elif arg == "status":
+        await message.channel.send("{0.mention} ".format(message.author) + server.get_online_status())
+
+      # Sends the online players of the server (online/max)
+      elif arg == "players":
+        await message.channel.send("{0.mention} ".format(message.author) + server.get_online_players())
+
+      # Sends the server sofware
+      elif arg == "version":
+        await message.channel.send("{0.mention} ".format(message.author) + server.get_server_version())
+
+      # Sends the server software
+      elif arg == "software":
+        await message.channel.send("{0.mention} ".format(message.author) + server.get_server_software())
+
+      # Sends the server queue status (your place/last place)
+      elif arg == "queue number":
+        try:
+          await message.channel.send("{0.mention} ".format(message.author) + server.get_queue_number())
+        except UnexpectedError as e:
+          await message.channel.send("{0.mention} Cannot load the queue data because the server it is not on the queue".format(message.author))
+
+      # Sends the server queue status (time left)
+      elif arg == "queue time":
+        try:
+          await message.channel.send("{0.mention} ".format(message.author) + server.get_queue_time_left())
+        except UnexpectedError as e:
+          await message.channel.send("{0.mention} Cannot load the queue data because the server it is not on the queue".format(message.author))
+
+      # Shows up some information about the bot
+      elif arg == "help":
+        await message.channel.send(HELP_INFO)
+      else:
+        await message.channel.send(HELP_INFO)
+    except AternosError:
+      await message.channel.send("ERROR... ADMIN check the console!")
 
 bot.run(read(JSON)["bot-token"])

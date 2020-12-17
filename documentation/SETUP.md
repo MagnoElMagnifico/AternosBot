@@ -44,7 +44,7 @@ This should make the bot join to your discord server, but it would appear as dis
 
 ## Set up the `data.json` file
 
-+ To link this program with the actual discord's bot, create a `data.json` file on the root folder of this project (or change its path in [AternosBot.py](AternosBot.py) line 5) with the following structure:
++ To link this program with the actual discord's bot, create a `data.json` file on the root folder of this project (or change its path in [AternosBot.py](AternosBot.py) line 6) with the following structure:
 
   ```
     {
