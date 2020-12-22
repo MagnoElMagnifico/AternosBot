@@ -14,10 +14,13 @@ By [Magno The Magnific](https://github.com/MagnoElMagnifico "me lol").
   - `%ab players`: Online players
   - `%ab version`: Minecraft server version
   - `%ab software`: Minecraft server software
+  - `%ab queue`: Position in the queue and estimated time left
+  - `%ab queue number`: Position in the queue while starting the server (your position/last position)
+  - `%ab queue time`: Estimated time until the server starts
 + **Still in progress**:
   - Open and close the server
-  - Get the queue info and skip it
   - Send a message periodicly updating the server info
+  - List of persons who can interact with the bot
 
 ## Set up
 See [the set up documentation](documentation/SETUP.md)

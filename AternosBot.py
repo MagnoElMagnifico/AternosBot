@@ -39,10 +39,27 @@ f"""
   arg: {message.content.lower().replace("%ab ", "")}
   author: {message.author}
   message.channel: {message.channel}
+  bot user: {bot.get_user}
+  more info: {bot}
 -------------------------------------------------
 """)
 
-    HELP_INFO = f""" Working on it! """
+    HELP_INFO = f"""
+Hello, my name is ... and this is what can I do:
+**Read data from the Aternos server**:
+  - `%ab get`: Shows up the server name, its status, the players online, its version and its software
+  - `%ab server name`: Server name
+  - `%ab status`: Online status
+  - `%ab players`: Online players
+  - `%ab version`: Minecraft server version
+  - `%ab software`: Minecraft server software
+  - `%ab queue`: Position in the queue (number and time left)
+  - `%ab queue number`: Position in the queue while starting the server (your position/last position)
+  - `%ab queue time`: Estimated time until the server starts
+**Bot funtions**:
+  - `%ab close`: Close the bot
+  - `%ab test`: Sends a test message
+"""
 
     #### BOT OPTIONS ####
     try:
@@ -85,27 +102,37 @@ f"""
       elif arg == "software":
         await message.channel.send("{0.mention} ".format(message.author) + server.get_server_software())
 
+      # Sends the server queue status (number + time)
+      elif arg == "queue":
+        try:
+          await message.channel.send(
+            "{0.mention} ".format(message.author) + server.get_queue_time_left() +
+            "(" + server.get_queue_number() + ")")
+        except UnexpectedError as e:
+          await message.channel.send("{0.mention} ".format(message.author) + e.__str__())
+
       # Sends the server queue status (your place/last place)
       elif arg == "queue number":
         try:
           await message.channel.send("{0.mention} ".format(message.author) + server.get_queue_number())
         except UnexpectedError as e:
-          await message.channel.send("{0.mention} Cannot load the queue data because the server it is not on the queue".format(message.author))
+          await message.channel.send("{0.mention} ".format(message.author) + e.__str__())
 
       # Sends the server queue status (time left)
       elif arg == "queue time":
         try:
           await message.channel.send("{0.mention} ".format(message.author) + server.get_queue_time_left())
         except UnexpectedError as e:
-          await message.channel.send("{0.mention} Cannot load the queue data because the server it is not on the queue".format(message.author))
+          await message.channel.send("{0.mention} ".format(message.author) + e.__str__())
 
       # Shows up some information about the bot
       elif arg == "help":
         await message.channel.send(HELP_INFO)
+
+      # Otherwise, notice the user that the command it is not valid
       else:
-        await message.channel.send(HELP_INFO)
+        await message.channel.send("{0.mention} This command it is not avaliable. Type `%ab help` for more information".format(message.author))
     except AternosError as e:
-      await message.channel.send("ERROR... ADMIN check the console!")
-      print(e)
+      await message.channel.send(e)
 
 bot.run(data["bot-token"])
