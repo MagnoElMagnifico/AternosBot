@@ -6,8 +6,9 @@ from AternosAPI import *
 JSON = "data.json"
 
 # Create the required objects
+data   = read(JSON)
 bot    = discord.Client()
-server = AternosServer(read(JSON)["aternos-cookie"])
+server = AternosServer(data["aternos-session"], data["aternos-server"])
 
 # Executed when the bot is ready
 @bot.event
@@ -58,10 +59,10 @@ f"""
       elif arg == "get":
         await message.channel.send(
           "{0.mention}".format(message.author)         +
-          "\nName    : " + server.get_server_name()    +
-          "\nStatus  : " + server.get_online_status()  +
-          "\nPlayers : " + server.get_online_players() +
-          "\nVersion : " + server.get_server_version() +
+          "\nName: "     + server.get_server_name()    +
+          "\nStatus: "   + server.get_online_status()  +
+          "\nPlayers: "  + server.get_online_players() +
+          "\nVersion: "  + server.get_server_version() +
           "\nSoftware: " + server.get_server_software())
 
       # Sends the minecraft server IP
@@ -103,7 +104,8 @@ f"""
         await message.channel.send(HELP_INFO)
       else:
         await message.channel.send(HELP_INFO)
-    except AternosError:
+    except AternosError as e:
       await message.channel.send("ERROR... ADMIN check the console!")
+      print(e)
 
-bot.run(read(JSON)["bot-token"])
+bot.run(data["bot-token"])

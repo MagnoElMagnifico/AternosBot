@@ -3,20 +3,27 @@
 By [Magno The Magnific](https://github.com/MagnoElMagnifico "me lol").
 
 ## Features
-+ Currently:
-  - Connect with discord
-  - Show information about the bot itself typing `%ab` or `%ab help`
-  - Respond to messages mentioning people with `%ab test`
-  - Close the bot from discord with `%ab close`
-+ **Main achivements**:
++ Connect with discord
++ Read the required data from a `.json` file
++ Show information about the bot itself typing `%ab` or `%ab help`
++ Respond to messages mentioning people with `%ab test`
++ Close the bot from discord with `%ab close`
++ Connect with aternos.org and get info about the server:
+  - `%ab server name`: Server name
+  - `%ab status`: Online status
+  - `%ab players`: Online players
+  - `%ab version`: Minecraft server version
+  - `%ab software`: Minecraft server software
++ **Still in progress**:
   - Open and close the server
-  - Get the server status: `online`/`offline`, people online, etc.
+  - Get the queue info and skip it
+  - Send a message periodicly updating the server info
 
 ## Set up
 See [the set up documentation](documentation/SETUP.md)
 
 ## Modules used - Requirements
-+ [Python](https://www.python.org/downloads/) LOL
++ [Python](https://www.python.org/downloads/)
 + [BeatifulSoup](https://crummy.com/software/BeautifulSoup/)
 + [Requests](https://pypi.org/project/requests/)
 + [Discord.py](https://pypi.org/project/discord.py/)
