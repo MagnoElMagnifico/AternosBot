@@ -21,12 +21,17 @@ class AternosServer:
     if not self.is_valid_cookie():
       raise InvalidCookie("Error: cannot conect to Aternos. Check the cookie value")
 
-  # Return True whether the cookie is valid
-  def is_valid_cookie(self):
-    # Try finding the logout button (it means we open a session)
+  def __exists(self, name="", id_="", clas=""):
+    """
+    Returns if a HTML tag on the Aternos page given the arguments exists
+    :param name: name of the html tag
+    :param id_: id atribute to searh for
+    :param clas: class atribute to search for
+    :return boolean
+    """
     web    = requests.get(url="https://aternos.org/server/", headers=self.aternos_data)
     html   = BeautifulSoup(web.content, "html.parser")
-    result = html.find("span", class_="logout")
+    result = html.find(name, id=id_, class_=clas)
     return not result == None
 
   def __search(self, name="", id_="", clas="", error=""):
@@ -51,6 +56,18 @@ class AternosServer:
       raise UnexpectedError(error)
     else:
       raise InvalidCookie("Error: Cannot conect to Aternos. Check the cookie value")
+
+  # Return True whether the cookie is valid
+  def is_valid_cookie(self):
+    # Try finding the logout button (it means we open a session)
+    return self.__exists(name="span", clas="logout")
+
+  # Return True whether the user can confirm queue
+  def can_confirm_queue(self):
+    return self.__exists(
+      name = "div",
+      id_  = "confirm",
+      clas = "btn btn-huge btn-success btn-clickme")
 
   def get_server_name(self):
     name = self.__search(
