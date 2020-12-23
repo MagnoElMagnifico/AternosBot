@@ -10,17 +10,22 @@ class UnexpectedError(AternosError):
   pass
 
 class AternosServer:
+  #### SET FUNTIONS ####
   def __init__(self, session: str, server: str):
+    self.set(session, server)
+
+  def set(self, session: str, server: str):
     # Check the data needed to send the request (see documentation/AternosAPI)
     if not session.endswith(';'):
       session = session + ';'
 
-    self.aternos_data = {"Cookie" : session + server}
+    self.aternos_data = {"Cookie": session + server}
 
     # Check if it is a valid request
     if not self.is_valid_cookie():
       raise InvalidCookie("Error: cannot conect to Aternos. Check the cookie value")
 
+  #### PRIVATE FUNTIONS (to shorten the code) ####
   def __exists(self, name="", id_="", clas=""):
     """
     Returns if a HTML tag on the Aternos page given the arguments exists
@@ -57,6 +62,7 @@ class AternosServer:
     else:
       raise InvalidCookie("Error: Cannot conect to Aternos. Check the cookie value")
 
+  #### TRUE/FALSE FUNTIONS ####
   # Return True whether the cookie is valid
   def is_valid_cookie(self):
     # Try finding the logout button (it means we open a session)
@@ -69,6 +75,7 @@ class AternosServer:
       id_  = "confirm",
       clas = "btn btn-huge btn-success btn-clickme")
 
+  #### GET INFO FUNTIONS ####
   def get_server_name(self):
     name = self.__search(
       name  = "div",
@@ -105,6 +112,7 @@ class AternosServer:
       id_   = "version",
       error = "Error: Cannot load the server version")
 
+  #### QUEUE FUNTIONS ####
   def get_queue_number(self):
     return self.__search(
       name  = "span",
@@ -117,6 +125,7 @@ class AternosServer:
       clas  = "server-status-label-left queue-time",
       error = "Error: Cannot read the queue because the server it is not on the queue")
 
+  #### SERVER FUNTIONS ####
   def start_server(self):
     pass
 

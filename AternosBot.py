@@ -61,22 +61,31 @@ Hello, I am AternosBot and this is what can I do:
   - `%ab queue time`: Estimated time until the server starts
 **Keep track funtions** (follow the progress of the server):
   - `%ab track status [time in seconds]`: Every the given time between 10 and 60 seconds, show the position on the queue
-**Bot funtions**:
+**ADMIN Bot funtions**:
   - `%ab close`: Close the bot
   - `%ab test`: Sends a test message
+  - `%ab reload data`: Reloads the data from the `data.json` file
 """
 
     #### BOT OPTIONS ####
     try:
+      #### ADMIN FUNTIONS (careful letting people use them) #####
       # Sends a test message
       if arg == "test":
         await message.channel.send(mention + "Test concluded!")
+
+      # Reload the data from the data.json file
+      elif arg == "reload data":
+        data = read(JSON)
+        server.set(data["aternos-session"], data["aternos-server"])
+        await message.channel.send(mention + ":ok_hand:")
 
       # Disconnects from the guild/server
       elif arg == "close":
         await message.channel.send(mention + ":ok_hand:")
         await bot.close()
 
+      #### READER FUNTIONS (read info from server only) ####
       # Sends all the information of the server
       elif arg == "get":
         await message.channel.send(
@@ -160,7 +169,7 @@ Hello, I am AternosBot and this is what can I do:
         except ValueError:
           await message.channel.send(mention + "The sintaxis of the command it is not valid: `%ab track status [seconds delay]`")
 
-
+      #### INFO FUNTIONS ####
       # Shows up some information about the bot
       elif arg == "help":
         await message.channel.send(mention + HELP_INFO)

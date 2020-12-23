@@ -7,6 +7,7 @@ By [Magno The Magnific](https://github.com/MagnoElMagnifico "me lol").
 ## Features
 + Connect with discord
 + Read the required data from a `.json` file
++ Reload the data from that file while the bot is running
 + Show information about the bot itself typing `%ab` or `%ab help`
 + Respond to messages mentioning people with `%ab test`
 + Close the bot from discord with `%ab close`
