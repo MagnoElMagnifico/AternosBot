@@ -1,3 +1,5 @@
+![Aternos Icon](aternos-icon.png)
+
 # AternosBot
 [Discord](https://discord.com) bot to manage a minecraft server in [Aternos](https://aternos.org).
 By [Magno The Magnific](https://github.com/MagnoElMagnifico "me lol").
@@ -17,9 +19,9 @@ By [Magno The Magnific](https://github.com/MagnoElMagnifico "me lol").
   - `%ab queue`: Position in the queue and estimated time left
   - `%ab queue number`: Position in the queue while starting the server (your position/last position)
   - `%ab queue time`: Estimated time until the server starts
+  - `%ab track status [time in seconds]`: Every the given time between 10 and 60 seconds, show the position on the queue
 + **Still in progress**:
   - Open and close the server
-  - Send a message periodicly updating the server info
   - List of persons who can interact with the bot
 
 ## Set up
